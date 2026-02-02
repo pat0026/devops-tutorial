@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ exercise_branch ]
+  pull_request:
+jobs:
+  build:
+    runs-on: local-machine
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          docker build -t hello-ci-cd ./GithubActions/Exercises/03_docker_build
+
+
+    run:
+      runs-on: local-machine
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v3
+
+        - name: Install dependencies
+          run: |
+            docker run  -d  -p 5000:5000 hello-ci-cd

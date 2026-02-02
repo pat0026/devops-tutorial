@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  generate:
+    image: alpine
+    volumes:
+      - data:/data
+    command: sh -c "echo report data > /data/input.txt"
+
+  process:
+    image: alpine
+    depends_on: [generate]
+    volumes:
+      - data:/data
+    command: sh -c "cat /data/input.txt | tr a-z A-Z > /data/output.txt"
+
+volumes:
+  data:
